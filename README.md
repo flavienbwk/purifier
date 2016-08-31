@@ -1,6 +1,6 @@
 # Purifier
 
-Purifier is a very simple and powerful PHP class that allows to purify an HTML or BBcode input, authorize or delete the URLs you want, convert HTML to BBCode, and enable or disable JS scripts.
+Purifier is a very simple and powerful PHP class that allows to purify an HTML or BBcode input, authorize or delete the URLs you want, convert BBCode to HTML, and enable or disable JS scripts.
 
 ***
 ## Class Purify for HTML
@@ -67,4 +67,16 @@ As you see, as the domain *example.com* has not been declared in *setAuthorizedU
 ```
 $purifier = new Purify("BASIC");
 $purifier->setAuthorizeScripts($boolean); // TRUE OR FALSE
+```
+
+## Class PurifyBB for BBCode
+### Get started :
+PurifyBB isn't a class that will check the BBCode code but that can **convert BBCode to HTML** and **check the allowed links** (using **verif_url()**).
+
+Example :
+```
+$input; //BBCode as input
+$purifier = new PurifyBB();
+$html = $purifier->verif_url($input,"google.com,bing.com"); // Set URLs authorized
+$html = $purifier->bbcode_to_html($input); //Convert BBCode input to HTML
 ```
