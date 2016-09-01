@@ -77,6 +77,6 @@ Example :
 ```
 $input; //BBCode as input
 $purifier = new PurifyBB();
-$html = $purifier->verif_url($input,"google.com,bing.com"); // Set URLs authorized
+$html = $purifier->verif_url($input,"google.com,bing.com"); // Set URLs authorized and verify them.
 $html = $purifier->bbcode_to_html($input); //Convert BBCode input to HTML
 ```
