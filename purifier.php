@@ -1,4 +1,6 @@
 <?php
+# Version 0.2
+
 	class Purify {
 		
 		private $basic_tags="<p><br /><br/><br><a><b><strong><em><i><ul><ol><li><blockquote>";
@@ -10,6 +12,8 @@
 		private $verbose=false;
 		
 		private $authorize_scripts=false;
+		
+		private $replace_with="";
 		
 		function __construct($authorized_tags="BASIC",$other_tags="",$verbose=false){
 			
@@ -51,6 +55,10 @@
 					}
 				}
 			}
+		}
+		
+		public function setReplaceWith($c){
+			$this->replace_with=$c;
 		}
 		
 		public function verifUrl($str){
@@ -161,6 +169,16 @@
 			return $str;
 		}
 		
+		private function strip_tags_with($string, $replace_with, $allowable_tags = null)
+		{
+				$string = str_replace('<', ' <', $string);
+				$string = strip_tags($string, $allowable_tags);
+				$string = str_replace('  ', $replace_with, $string);
+				$string = trim($string);
+
+				return $string;
+		}
+		
 		public function setAuthorizeScripts($truefalse){
 			
 			if($truefalse===true){
@@ -184,11 +202,15 @@
 				$str=$this->verifUrl($str);
 			}
 			
+			if($this->replace_with==""){
 			// Strip tags but allow <p>, <br />, <a>, <strong>, <em>.
 			$str = strip_tags($str, $this->total_tags);
 			
 			// Clean out ''s that strip_text uses around href's
 			$str = str_replace( '', '', $str );
+			}else{
+				$str=$this->strip_tags_with($str, $this->replace_with, $this->total_tags);
+			}
 			
 			// Strip out all paragraphs with attributes
 			//$str = preg_replace("/<p[^>]*>/", '<p>', $str);

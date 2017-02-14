@@ -35,6 +35,13 @@ If the input is ```<p><b>Blabla</b><i>Another blabla</i></p>```, the ouput will 
 ```
 $purifier = new Purify("BASIC","<b>");
 ```
+##### Example 3 : you want to replace the ```<b>``` tag by a coma (,)
+```
+$purifier = new Purify("NONE","<b>");
+$purifier->setReplaceWith(",");
+$output=$purifier->purify("<b>hey</b><b>hay</b>);
+// Will output hey,hay
+```
 
 #### Initialize a class with controlled URLs
 This feature allows you to control which domain name is authorized or not. If a non-authorized domain name is found, the link be deleted.
